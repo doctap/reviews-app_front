@@ -18,6 +18,7 @@ export async function getProtectedMessage(token: string) {
 	try {
 		const response = await fetch(`${SERVER_URI}/messages/protected`, {
 			headers: {
+				// добавляем заголовок авторизации с токеном
 				Authorization: `Bearer ${token}`
 			}
 		})

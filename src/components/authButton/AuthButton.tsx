@@ -4,8 +4,12 @@ import { LoginButton } from './loginButton/LoginButton'
 import { LogoutButton } from './logoutButton/LogoutButton'
 
 export const AuthButton = () => {
-	// статус авторизации
-	const { isAuthenticated } = useAuth0()
+	// статус авторизации, получение токена
+	const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
-	return isAuthenticated ? <LogoutButton /> : <LoginButton />
+	isAuthenticated && getAccessTokenSilently().then(t => localStorage.setItem("reviewApp-token", t));
+
+	return (
+		isAuthenticated ? <LogoutButton /> : <LoginButton />
+	)
 }

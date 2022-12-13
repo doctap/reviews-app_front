@@ -1,0 +1,21 @@
+[
+	{
+		"sub": "facebook|885919465918869",
+		"given_name": "Vasilij",
+		"family_name": "Nikiforov",
+		"nickname": "new_parker",
+		"name": "Vasilij Nikiforov",
+		"picture": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=885919465918869&height=50&width=50&ext=1673448651&hash=AeTu14l7WcmSuHk9NFU",
+		"updated_at": "2022-12-12T14:50:51.873Z"
+	},
+	{
+		"sub": "vkontakte|14425092",
+		"given_name": "Vasily",
+		"family_name": "Nikiforov",
+		"nickname": "traes",
+		"name": "traes",
+		"picture": "https://cdn.auth0.com/avatars/tr.png",
+		"gender": "male",
+		"updated_at": "2022-12-12T15:14:34.799Z"
+	}
+]
