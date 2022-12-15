@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import messagesRoutes from './messages.routes'
+import reviewsRoutes from './reviews.routes'
 
 const router = Router()
 
-router.use('/messages', messagesRoutes)
+router.use('/', reviewsRoutes)	
 
 export default router

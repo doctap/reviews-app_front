@@ -2,15 +2,12 @@ import React from 'react'
 import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react'
 import Spinner from '../../components/boundary/spinner/Spinner'
 import styles from './ProfilePage.module.scss';
-import { getProtectedMessage } from '../../api/messages';
+import { getProtectedMessage } from '../../api/http-client';
 
 export const ProfilePage = withAuthenticationRequired(
 	() => {
 		const { user } = useAuth0()
 
-		const qwerty = () => {
-			getProtectedMessage(localStorage.getItem("reviewApp-token") ?? '').then(r => console.log(r))
-		}
 
 		return (
 			<>
@@ -21,13 +18,13 @@ export const ProfilePage = withAuthenticationRequired(
 						<h2>{user?.name}</h2>
 						<p>{user?.email}</p>
 					</div>
-					<button children='Давай жмакни на меня ублюдок' onClick={qwerty} />
+
 				</div>
 			</>
 		)
 	},
 	{
-		returnTo: '/profile',
+		returnTo: '/profilePage',
 		onRedirecting: () => <div className={styles.spinner}><Spinner /></div>
 	}
 )

@@ -1,15 +1,22 @@
 import express from 'express'
 import helmet from 'helmet'
-import cors from 'cors'
+import cors, { CorsOptions } from 'cors'
 import dotenv from 'dotenv'
 import apiRoutes from '../src/routes/api.routes'
 
 dotenv.config()
 
+const corsOptions: CorsOptions = {
+	credentials: true,
+	optionsSuccessStatus: 200,
+	origin: ['http://localhost:3000'],
+	methods: ['GET', 'POST', 'DELETE'],
+}
+
 const app = express()
 
 app.use(helmet())
-app.use(cors({ origin: process.env.CLIENT_URI }))
+app.use(cors(corsOptions))
 app.use(express.json())
 
 app.use('/api', apiRoutes)

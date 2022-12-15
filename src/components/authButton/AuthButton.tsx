@@ -7,7 +7,10 @@ export const AuthButton = () => {
 	// статус авторизации, получение токена
 	const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
-	isAuthenticated && getAccessTokenSilently().then(t => localStorage.setItem("reviewApp-token", t));
+	isAuthenticated ?
+		getAccessTokenSilently().then(t => localStorage.setItem("reviewApp-token", t))
+		:
+		localStorage.removeItem("reviewApp-token")
 
 	return (
 		isAuthenticated ? <LogoutButton /> : <LoginButton />

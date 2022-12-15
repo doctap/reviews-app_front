@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import AppProvider from './providers/AppProvider';
 import Auth0ProviderWithNavigate from './providers/Auth0ProviderWithNavigate';
 
 const root = ReactDOM.createRoot(
