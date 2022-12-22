@@ -1,0 +1,55 @@
+.like {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 2.4825rem;
+	height: 1.25rem;
+	border-radius: 1rem;
+	border: 1px solid rgba(31, 32, 65, 0.25);
+	background: rgba(0,0,0,0);
+
+	.favorite_border {
+		width: 1em;
+		height: 1em;
+		font-family: Material icons;
+		color: rgba(31, 32, 65, 0.25);
+	}
+
+	.favorite {
+		display: none;
+	}
+
+	.num {
+		font-size: .670rem;
+		color: rgba(31, 32, 65, 0.50);
+	}
+}
+
+.disLike {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 2.5rem;
+	height: 1.25rem;
+	border-radius: 1rem;
+	border: 1px solid #a489de;
+	background: rgba(0,0,0,0);
+
+	.favorite {
+		width: 1em;
+		height: 1em;
+		font-family: Material icons;
+		color: #a489de;
+	}
+
+	.favorite_border {
+		display: none;
+	}
+
+	.num {
+		font-size: .670rem;
+		color: #a489de;
+	}
+}

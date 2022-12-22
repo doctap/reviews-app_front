@@ -1,15 +1,10 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
 import Nav from 'react-bootstrap/Nav';
 import { Outlet, Link } from "react-router-dom";
-import { AuthButton } from '../../components/authButton/AuthButton';
 import UserAuth from '../../components/UserAuth/UserAuth';
 import styles from './Layout.module.scss';
 
 export default function Layout() {
-
-	const { user } = useAuth0()
-
 	return (
 		<>
 			<Nav className={styles.nav} variant="tabs">
@@ -20,7 +15,7 @@ export default function Layout() {
 					<Link to="/profilePage">My Profile</Link>
 				</Nav.Item>
 				<Nav.Item>
-					<UserAuth familyName={user?.family_name} givenName={user?.given_name} />
+					<UserAuth/>
 				</Nav.Item>
 			</Nav>
 			<Outlet />

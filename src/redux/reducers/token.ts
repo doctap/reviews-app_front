@@ -1,22 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IToken {
-	token: string;
+	sub: string;
 }
 
 const initialState: IToken = {
-	token: localStorage.getItem("reviewApp-token") ?? '',
+	sub: '',
 }
 
-export const token = createSlice({
-	name: 'ErrorModalWindow',
+export const subFromSocialNetwork = createSlice({
+	name: 'Sub from social network',
 	initialState,
 	reducers: {
-		set(state, action: PayloadAction<string>) {
-			state.token = action.payload
-			localStorage.setItem("reviewApp-token", action.payload)
+		setSubject(state, action: PayloadAction<string>) {
+			state.sub = action.payload
 		}
 	}
 });
 
-export default token.reducer;
+export default subFromSocialNetwork.reducer;

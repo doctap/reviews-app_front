@@ -1,8 +1,8 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import token from '../reducers/token'
+import subFromSocialNetwork from '../reducers/token'
 
 const rootReducer = combineReducers({
-	token,
+	subFromSocialNetwork,
 });
 
 export const setupStore = () => {

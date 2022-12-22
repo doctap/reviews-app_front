@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react'
 import Spinner from '../../components/boundary/spinner/Spinner'
 import styles from './ProfilePage.module.scss';
@@ -8,6 +8,10 @@ export const ProfilePage = withAuthenticationRequired(
 	() => {
 		const { user } = useAuth0()
 
+		useEffect(() => {
+			console.log(user)
+			console.log(JSON.stringify(user, null, 2))
+		}, [])
 
 		return (
 			<>
