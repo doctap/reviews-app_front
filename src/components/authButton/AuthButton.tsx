@@ -3,7 +3,6 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { LoginButton } from './loginButton/LoginButton'
 import { LogoutButton } from './logoutButton/LogoutButton'
 import { IUserData } from '../../api/data-contracts/data-contracts'
-import { registerUser } from '../../api/http-client'
 
 interface IAuthButton {
 	onLogin(): void;

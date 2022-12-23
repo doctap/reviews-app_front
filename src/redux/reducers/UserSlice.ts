@@ -4,16 +4,18 @@ import { IUserData } from '../../api/data-contracts/data-contracts';
 export interface IUser {
 	admin?: boolean;
 	token: string;
-	data_user?: IUserData
+	data_user?: IUserData;
+	isAuthenticated?: boolean;
 }
 
 const initialState: IUser = {
 	admin: false,
 	token: '',
 	data_user: {},
+	isAuthenticated: false,
 }
 
-export const usersSlice = createSlice({
+export const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
@@ -21,8 +23,9 @@ export const usersSlice = createSlice({
 			state.token = action.payload.token;
 			state.admin = action.payload.admin;
 			state.data_user = action.payload.data_user;
+			state.isAuthenticated = action.payload.isAuthenticated;
 		}
 	}
 });
 
-export default usersSlice.reducer;
+export default userSlice.reducer;

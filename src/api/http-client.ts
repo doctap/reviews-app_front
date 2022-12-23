@@ -19,7 +19,7 @@ export const fetchReviews = (slice: IRequestSlice) => async (dispatch: AppDispat
 export async function registerUser(body: IUserData, token: string) {
 	const res = await API_CONFIG.post<IUserData, AxiosResponse<IResponseRegister>>(
 		`${SERVER_URI}/registerUser`,
-		body,
+		{ sub: body.sub, given_name: body.given_name, family_name: body.family_name },
 		{ headers: { Authorization: `Bearer ${token}` } }
 	);
 	return res.data;

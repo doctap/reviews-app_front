@@ -1,18 +1,23 @@
 import React, { useState } from 'react'
 import { IReview } from '../../api/data-contracts/data-contracts'
 import { likeReview } from '../../api/http-client';
+import { useAppSelector } from '../../redux/hooks/redux';
 import LikeBtn from '../btnLike/LikeBtn';
 import Select from '../selects/select/Select';
 import styles from './Review.module.scss';
 
 export default function Review(props: IReview) {
+
+	const { data_user, token } = useAppSelector(st => st.userSlice);
+
 	const reviewAuthor = props.user_id;
 
 	const [like, setLike] = useState(false);
 
 	const getNewLike = () => {
 		setLike(!like);
-		// likeReview({ });
+		// likeReview({ isLike: like, sub: data_user?.sub, reviews_id: props.id}, token)
+		// .catch((e) => );
 	}
 
 

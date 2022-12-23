@@ -7,17 +7,17 @@
 	height: 1.25rem;
 	border-radius: 1rem;
 	border: 1px solid rgba(31, 32, 65, 0.25);
-	background: rgba(0,0,0,0);
+	background: rgba(0, 0, 0, 0);
 
 	.favorite_border {
-		width: 1em;
-		height: fit-content;
-		font-family: Material icons;
-		color: rgba(31, 32, 65, 0.25);
+		display: none;
 	}
 
 	.favorite {
-		display: none;
+		width: 1em;
+		height: fit-content;
+		font-family: Material icons;
+		color: #a489de;
 	}
 
 	.num {
@@ -35,17 +35,17 @@
 	height: 1.25rem;
 	border-radius: 1rem;
 	border: 1px solid #a489de;
-	background: rgba(0,0,0,0);
+	background: rgba(0, 0, 0, 0);
 
 	.favorite {
-		width: 1em;
-		height: fit-content;
-		font-family: Material icons;
-		color: #a489de;
+		display: none;
 	}
 
 	.favorite_border {
-		display: none;
+		width: 1em;
+		height: fit-content;
+		font-family: Material icons;
+		color: rgba(31, 32, 65, 0.25);
 	}
 
 	.num {

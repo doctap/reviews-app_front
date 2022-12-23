@@ -42,7 +42,7 @@ export interface IResponseRegister {
 
 export interface ILike {
 	reviews_id: number;
-	user_id: number;
+	sub?: string;
 	isLike: boolean; 
 }
 
