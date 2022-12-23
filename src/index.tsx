@@ -5,6 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import Auth0ProviderWithNavigate from './providers/Auth0ProviderWithNavigate';
+import { Provider } from 'react-redux';
+import { setupStore } from './redux/store/store'
+
+const store = setupStore();
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
@@ -13,9 +17,9 @@ root.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<Auth0ProviderWithNavigate>
-				{/* <AppProvider> */}
+				<Provider store={store} >
 					<App />
-				{/* </AppProvider> */}
+				</Provider>
 			</Auth0ProviderWithNavigate>
 		</BrowserRouter>
 	</React.StrictMode>

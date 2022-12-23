@@ -1,9 +1,9 @@
 .like {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-evenly;
+	justify-content: space-between;
 	align-items: center;
-	width: 2.4825rem;
+	width: fit-content;
 	height: 1.25rem;
 	border-radius: 1rem;
 	border: 1px solid rgba(31, 32, 65, 0.25);
@@ -11,7 +11,7 @@
 
 	.favorite_border {
 		width: 1em;
-		height: 1em;
+		height: fit-content;
 		font-family: Material icons;
 		color: rgba(31, 32, 65, 0.25);
 	}
@@ -29,9 +29,9 @@
 .disLike {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-evenly;
+	justify-content: space-between;
 	align-items: center;
-	width: 2.5rem;
+	width: fit-content;
 	height: 1.25rem;
 	border-radius: 1rem;
 	border: 1px solid #a489de;
@@ -39,7 +39,7 @@
 
 	.favorite {
 		width: 1em;
-		height: 1em;
+		height: fit-content;
 		font-family: Material icons;
 		color: #a489de;
 	}

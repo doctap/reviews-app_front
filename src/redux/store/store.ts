@@ -1,8 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import subFromSocialNetwork from '../reducers/token'
+import reviewsSlice from '../reducers/ReviewsSlice';
+import usersSlice from '../reducers/UserSlice';
 
 const rootReducer = combineReducers({
-	subFromSocialNetwork,
+	reviewsSlice,
+	usersSlice,
 });
 
 export const setupStore = () => {

@@ -2,14 +2,19 @@ import React from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { LoginButton } from './loginButton/LoginButton'
 import { LogoutButton } from './logoutButton/LogoutButton'
-import { IRegisterUser } from '../../api/data-contracts/data-contracts'
+import { IUserData } from '../../api/data-contracts/data-contracts'
 import { registerUser } from '../../api/http-client'
 
-export const AuthButton = () => {
+interface IAuthButton {
+	onLogin(): void;
+	onLogout(): void;
+}
+
+export const AuthButton = (props: IAuthButton) => {
 	// статус авторизации, получение токена
 	const { isAuthenticated } = useAuth0();
-
+	
 	return (
-		isAuthenticated ? <LogoutButton /> : <LoginButton />
+		isAuthenticated ? <LogoutButton onLogout={props.onLogout} /> : <LoginButton onLogin={props.onLogin} />
 	)
 }

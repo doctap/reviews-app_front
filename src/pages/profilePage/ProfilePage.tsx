@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react'
-import Spinner from '../../components/boundary/spinner/Spinner'
+import SpinnerBallTriangle from '../../components/boundary/spinners/Spinner'
 import styles from './ProfilePage.module.scss';
-import { getProtectedMessage } from '../../api/http-client';
 
 export const ProfilePage = withAuthenticationRequired(
 	() => {
@@ -29,6 +28,6 @@ export const ProfilePage = withAuthenticationRequired(
 	},
 	{
 		returnTo: '/profilePage',
-		onRedirecting: () => <div className={styles.spinner}><Spinner /></div>
+		onRedirecting: () => <div className={styles.spinner}><SpinnerBallTriangle color='#0d6efd' /></div>
 	}
 )

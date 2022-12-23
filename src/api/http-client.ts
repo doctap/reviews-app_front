@@ -1,23 +1,42 @@
 import { AxiosResponse } from "axios";
+import { reviewsSlice } from "../redux/reducers/ReviewsSlice";
+import { AppDispatch } from "../redux/store/store";
 import { API_CONFIG } from "./axiosConfig/axiosConfig";
-import { ILike, IRegisterUser, IRequestSlice, IResponseRegister, IReview } from "./data-contracts/data-contracts";
+import { ILike, IUserData, IRequestSlice, IResponseRegister, IReview } from "./data-contracts/data-contracts";
 
 const SERVER_URI = process.env.REACT_APP_SERVER_URI;
 
-export async function getReviews(slice: IRequestSlice) {
-	const res = await API_CONFIG.post<IRequestSlice, AxiosResponse<IReview[]>>(`${SERVER_URI}/reviews`, slice);
-	return res.data;
+export const fetchReviews = (slice: IRequestSlice) => async (dispatch: AppDispatch) => {
+	try {
+		dispatch(reviewsSlice.actions.reviewsFetching());
+		const res = await API_CONFIG.post<IRequestSlice, AxiosResponse<IReview[]>>(`${SERVER_URI}/reviews`, slice);
+		dispatch(reviewsSlice.actions.reviewsFetchingSuccess(res.data));
+	} catch (e: any) {
+		dispatch(reviewsSlice.actions.reviewsFetchingError(e.message))
+	}
 }
 
-export async function registerUser(data: IRegisterUser) {
-	const res = await API_CONFIG.post<IRegisterUser, AxiosResponse<IResponseRegister>>(
+export async function registerUser(body: IUserData, token: string) {
+	const res = await API_CONFIG.post<IUserData, AxiosResponse<IResponseRegister>>(
 		`${SERVER_URI}/registerUser`,
-		{ sub: data.sub, firstName: data.firstName, lastName: data.lastName }
+		body,
+		{ headers: { Authorization: `Bearer ${token}` } }
 	);
 	return res.data;
 }
 
-//stopped at task "Likes"
+export async function likeReview(body: ILike, token: string) {
+	try {
+		const res = await API_CONFIG.post(
+			`${SERVER_URI}/likeReview`,
+			body,
+			{ headers: { Authorization: `Bearer ${token}` } }
+		);
+		return res.data;
+	} catch (e) {
+		throw e
+	}
+}
 
 export async function getProtectedMessage(token: string) {
 	let data = { message: '' }
@@ -37,19 +56,7 @@ export async function getProtectedMessage(token: string) {
 	}
 }
 
-export async function likeReview(body: ILike, token: string) {
-	try {
-		const res = await API_CONFIG.post
-			(
-				`${SERVER_URI}/likeReview`,
-				body,
-				{ headers: { Authorization: `Bearer ${token}` } }
-			);
-		return res.data;
-	} catch (error) {
-		throw error
-	}
-}
+
 
 // likeReview({ isLike: true, reviewsId: 2 }, localStorage.getItem("reviewApp-token") ?? '')
 // .then(r => console.log(r))

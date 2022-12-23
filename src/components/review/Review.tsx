@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IReview } from '../../api/data-contracts/data-contracts'
+import { likeReview } from '../../api/http-client';
 import LikeBtn from '../btnLike/LikeBtn';
 import Select from '../selects/select/Select';
 import styles from './Review.module.scss';
 
 export default function Review(props: IReview) {
-
 	const reviewAuthor = props.user_id;
+
+	const [like, setLike] = useState(false);
+
+	const getNewLike = () => {
+		setLike(!like);
+		// likeReview({ });
+	}
+
 
 	return (
 		<div id={`review${props.id}`} className={styles.review}>
@@ -38,7 +46,7 @@ export default function Review(props: IReview) {
 					</div>
 				</div>
 				<div className={styles.likeButton}>
-					<LikeBtn value={props.likes} />
+					<LikeBtn onClick={getNewLike} isLike={like} />
 				</div>
 			</div>
 

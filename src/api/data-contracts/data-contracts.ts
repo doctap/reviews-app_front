@@ -12,12 +12,27 @@ export interface IReview {
 	average_rating: string;
 }
 
-export interface IRegisterUser {
-	token?: string;
-	firstName?: string;
-	lastName?: string;
+export interface IUserData {
+	name?: string;
+	given_name?: string;
+	family_name?: string;
+	middle_name?: string;
+	nickname?: string;
+	preferred_username?: string;
+	profile?: string;
+	picture?: string;
+	website?: string;
+	email?: string;
+	email_verified?: boolean;
+	gender?: string;
+	birthdate?: string;
+	zoneinfo?: string;
+	locale?: string;
+	phone_number?: string;
+	phone_number_verified?: boolean;
+	address?: string;
+	updated_at?: string;
 	sub?: string;
-	id?: number;
 }
 
 export interface IResponseRegister {
@@ -26,8 +41,8 @@ export interface IResponseRegister {
 }
 
 export interface ILike {
-	reviewsId: number;
-	userId?: number;
+	reviews_id: number;
+	user_id: number;
 	isLike: boolean; 
 }
 
