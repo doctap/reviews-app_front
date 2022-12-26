@@ -1,25 +1,32 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState } from 'react'
 import { IReview } from '../../api/data-contracts/data-contracts'
-import { likeReview } from '../../api/http-client';
+import { giveRating, likeReview } from '../../api/http-client';
 import { useAppSelector } from '../../redux/hooks/redux';
-import LikeBtn from '../btnLike/LikeBtn';
+import CheckBoxLike from '../btnLike/CheckBoxLike';
 import Select from '../selects/select/Select';
 import styles from './Review.module.scss';
 
 export default function Review(props: IReview) {
 
-	const { data_user, token } = useAppSelector(st => st.userSlice);
+	const { data_user, token, isAuthenticated } = useAppSelector(st => st.userSlice);
+	const { loginWithRedirect } = useAuth0();
 
 	const reviewAuthor = props.user_id;
 
-	const [like, setLike] = useState(false);
-
-	const getNewLike = () => {
-		setLike(!like);
-		// likeReview({ isLike: like, sub: data_user?.sub, reviews_id: props.id}, token)
-		// .catch((e) => );
+	const onChangeRate = (rate: number) => {
+		isAuthenticated ?
+			giveRating({ user_rating: rate, sub: data_user?.sub, review_id: props.id }, token)
+			:
+			loginWithRedirect();
 	}
 
+	const onChangeLike = (isLike: boolean) => {
+		isAuthenticated ?
+			likeReview({ user_likes_it: isLike, sub: data_user?.sub, review_id: props.id }, token)
+			:
+			loginWithRedirect();
+	}
 
 	return (
 		<div id={`review${props.id}`} className={styles.review}>
@@ -47,11 +54,14 @@ export default function Review(props: IReview) {
 						{`Rating among users: ${parseFloat(props.average_rating)}/5`}
 					</div>
 					<div className={styles.selectRate}>
-						<Select size='sm' getRate={() => 0} options={[1, 2, 3, 4, 5]} />
+						<div className={styles.selectText}>
+							Give rating
+						</div>
+						<Select value={props.user_rating} size='sm' getRate={onChangeRate} options={[1, 2, 3, 4, 5]} />
 					</div>
 				</div>
 				<div className={styles.likeButton}>
-					<LikeBtn onClick={getNewLike} isLike={like} />
+					<CheckBoxLike text='like it?' isLike={props.user_likes_it ?? false} onLike={onChangeLike} />
 				</div>
 			</div>
 

@@ -10,9 +10,11 @@ export interface IReview {
 	likes: number;
 	user_id: number;
 	average_rating: string;
+	user_likes_it?: boolean;
+	user_rating?: number;
 }
 
-export interface IUserData {
+export interface IUser {
 	name?: string;
 	given_name?: string;
 	family_name?: string;
@@ -40,10 +42,16 @@ export interface IResponseRegister {
 	isExist: boolean;
 }
 
-export interface ILike {
-	reviews_id: number;
+export interface IRate {
+	review_id: number;
 	sub?: string;
-	isLike: boolean; 
+	user_rating: number;
+}
+
+export interface ILike {
+	review_id: number;
+	sub?: string;
+	user_likes_it: boolean; 
 }
 
 export interface IRequestSlice {

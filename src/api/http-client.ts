@@ -1,8 +1,9 @@
 import { AxiosResponse } from "axios";
 import { reviewsSlice } from "../redux/reducers/ReviewsSlice";
+import { IUserData } from "../redux/reducers/UserSlice";
 import { AppDispatch } from "../redux/store/store";
 import { API_CONFIG } from "./axiosConfig/axiosConfig";
-import { ILike, IUserData, IRequestSlice, IResponseRegister, IReview } from "./data-contracts/data-contracts";
+import { ILike, IUser, IRequestSlice, IResponseRegister, IReview, IRate } from "./data-contracts/data-contracts";
 
 const SERVER_URI = process.env.REACT_APP_SERVER_URI;
 
@@ -16,19 +17,48 @@ export const fetchReviews = (slice: IRequestSlice) => async (dispatch: AppDispat
 	}
 }
 
-export async function registerUser(body: IUserData, token: string) {
-	const res = await API_CONFIG.post<IUserData, AxiosResponse<IResponseRegister>>(
-		`${SERVER_URI}/registerUser`,
-		{ sub: body.sub, given_name: body.given_name, family_name: body.family_name },
-		{ headers: { Authorization: `Bearer ${token}` } }
-	);
-	return res.data;
+export const fetchProtectedReviews = (body: IUser & IUserData & IRequestSlice) => async (dispatch: AppDispatch) => {
+	try {
+		dispatch(reviewsSlice.actions.reviewsFetching());
+		const res = await API_CONFIG.post<IRequestSlice, AxiosResponse<IReview[]>>(
+			`${SERVER_URI}/protectedReviews`, body, { headers: { Authorization: `Bearer ${body.token}` } }
+		);
+		dispatch(reviewsSlice.actions.reviewsFetchingSuccess(res.data));
+	} catch (e: any) {
+		dispatch(reviewsSlice.actions.reviewsFetchingError(e.message))
+	}
+}
+
+export async function registerUser(body: IUser, token: string) {
+	try {
+		const res = await API_CONFIG.post<IUser, AxiosResponse<IResponseRegister>>(
+			`${SERVER_URI}/registerUser`,
+			{ sub: body.sub, given_name: body.given_name, family_name: body.family_name },
+			{ headers: { Authorization: `Bearer ${token}` } }
+		);
+		return res.data;
+	} catch (e) {
+		throw e
+	}
 }
 
 export async function likeReview(body: ILike, token: string) {
 	try {
-		const res = await API_CONFIG.post(
+		const res = await API_CONFIG.post<ILike>(
 			`${SERVER_URI}/likeReview`,
+			body,
+			{ headers: { Authorization: `Bearer ${token}` } }
+		);
+		return res.data;
+	} catch (e) {
+		throw e
+	}
+}
+
+export async function giveRating(body: IRate, token: string) {
+	try {
+		const res = await API_CONFIG.post<IRate>(
+			`${SERVER_URI}/giveRating`,
 			body,
 			{ headers: { Authorization: `Bearer ${token}` } }
 		);

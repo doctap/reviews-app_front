@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUserData } from '../../api/data-contracts/data-contracts';
+import { IUser } from '../../api/data-contracts/data-contracts';
 
-export interface IUser {
+export interface IUserData {
 	admin?: boolean;
 	token: string;
-	data_user?: IUserData;
+	data_user?: IUser;
 	isAuthenticated?: boolean;
 }
 
-const initialState: IUser = {
+const initialState: IUserData = {
 	admin: false,
 	token: '',
 	data_user: {},
@@ -16,10 +16,10 @@ const initialState: IUser = {
 }
 
 export const userSlice = createSlice({
-	name: 'user',
+	name: 'userData',
 	initialState,
 	reducers: {
-		userRecognition(state, action: PayloadAction<IUser>) {
+		userRecognition(state, action: PayloadAction<IUserData>) {
 			state.token = action.payload.token;
 			state.admin = action.payload.admin;
 			state.data_user = action.payload.data_user;

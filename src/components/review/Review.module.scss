@@ -19,5 +19,15 @@
 			display: flex;
 			justify-content: space-between;
 		}
+		
+		.selectRate {
+			display: flex;
+			align-items: center;
+
+			.selectText {
+				white-space: nowrap;
+				margin-right: .5rem;
+			}
+		}
 	}
 }

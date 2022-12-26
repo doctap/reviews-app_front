@@ -23,6 +23,8 @@ export default function ListReviews(props: IListReviews) {
 					type={r.type}
 					user_id={r.user_id}
 					average_rating={r.average_rating}
+					user_likes_it={r.user_likes_it}
+					user_rating={r.user_rating}
 				/>
 			))}
 		</>
