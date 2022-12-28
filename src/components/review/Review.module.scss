@@ -2,11 +2,16 @@
 	border: 1px solid #000;
 	border-radius: 5px;
 	padding: 1rem;
+	min-width: min-content;
 
-	.image {
+	.imageContainer {
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
+		.image {
+			width: 15rem;
+		}
 	}
 
 	.title {

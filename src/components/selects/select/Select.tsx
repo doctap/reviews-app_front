@@ -1,37 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import { Form } from 'react-bootstrap'
+import React from 'react'
+import { Form } from 'react-bootstrap';
 
 interface ISelect {
-	size?: Size;
-	getRate: (rate: number) => void;
-	options: string[] | number[];
-	value?: string | number;
+	size?: 'sm' | 'lg'
+	selectOption: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+	options: string[];
+	value: string;
+	defaultValue?: string;
 }
 
-type Size = 'sm' | 'lg';
-
 export default function Select(props: ISelect) {
-
-	const [value, setValue] = useState<number | string | undefined>();
-
-	const onListener = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		const elem = e.currentTarget;
-		setValue(elem.value);
-		props.getRate(parseInt(elem.value));
-	}
-
-	useEffect(() => {
-		setValue(props.value)
-	}, [props.value])
-
 	return (
 		<Form.Select
-			value={value}
+			value={props.value}
 			size={props.size}
-			defaultValue={props.value}
-			onChange={onListener}
-			aria-label="Default select example"
+			onChange={props.selectOption}
 		>
+			<option value='' disabled>{props.defaultValue}</option>
 			{props.options.map(s => (
 				<option key={s} value={s}>{s}</option>
 			))}

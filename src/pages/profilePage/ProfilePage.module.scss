@@ -1,3 +1,25 @@
+.profilePage {
+	padding: 1rem 4rem;
+
+	.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.userCard {
+			display: flex;
+		}
+
+		.successAnswer {
+			color: green;
+		}
+	}
+
+	.CreateReviewForm {
+		padding: 1rem 4rem 0 4rem;
+	}
+}
+
 .spinner {
 	width: 100%;
 	display: flex;

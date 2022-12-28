@@ -1,9 +1,10 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
+import { IUser } from "../../api/data-contracts/data-contracts";
 import { registerUser } from "../../api/http-client";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/redux";
 import { userSlice } from "../../redux/reducers/UserSlice";
-import { AuthButton } from "../authButton/AuthButton";
+import { AuthButton } from "../buttons/authButton/AuthButton";
 
 export default function UserAuth() {
 
@@ -20,7 +21,14 @@ export default function UserAuth() {
 	if (isAuthenticated) {
 		getAccessTokenSilently()
 			.then(t => {
-				dispatch(userRecognition({ token: t, data_user: user, admin: false, isAuthenticated }))
+				dispatch(
+					userRecognition({
+						token: t,
+						data_user: user,
+						admin: false,
+						isAuthenticated
+					})
+				)
 			})
 	}
 

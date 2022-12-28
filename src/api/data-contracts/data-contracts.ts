@@ -3,16 +3,29 @@ export interface IReview {
 	title: string;
 	text: string;
 	name_work: string;
-	type: string;
+	type: typeReview;
 	tags: string;
-	image: string; //File
+	image: string;
 	author_rating: number;
 	likes: number;
-	user_id: number;
-	average_rating: string;
+	user_id: string;
+	average_rating?: string;
 	user_likes_it?: boolean;
 	user_rating?: number;
 }
+
+type typeReview = 'book' | 'film' | 'game';
+
+// export interface ICreateReview {
+// 	title: string;
+// 	text: string;
+// 	name_work: string;
+// 	type: string;
+// 	tags: string;
+// 	image: FormData;
+// 	author_rating: number;
+// 	user_id: string;
+// }
 
 export interface IUser {
 	name?: string;

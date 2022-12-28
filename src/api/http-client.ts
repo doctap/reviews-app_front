@@ -68,6 +68,19 @@ export async function giveRating(body: IRate, token: string) {
 	}
 }
 
+export async function createReview(body: FormData) {
+	try {
+		const res = await API_CONFIG.post(
+			`${SERVER_URI}/createReview`,
+			body,
+			{ headers: { "Content-type": "multipart/form-data" } }
+		);
+		return res.data;
+	} catch (e) {
+		throw e
+	}
+}
+
 export async function getProtectedMessage(token: string) {
 	let data = { message: '' }
 	try {

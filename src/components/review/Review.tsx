@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import { IReview } from '../../api/data-contracts/data-contracts'
 import { giveRating, likeReview } from '../../api/http-client';
 import { useAppSelector } from '../../redux/hooks/redux';
-import CheckBoxLike from '../btnLike/CheckBoxLike';
-import Select from '../selects/select/Select';
+import CheckBoxLike from '../buttons/btnLike/CheckBoxLike';
+import GiveRate from '../selects/giveRate/GiveRate';
 import styles from './Review.module.scss';
 
 export default function Review(props: IReview) {
@@ -36,8 +36,12 @@ export default function Review(props: IReview) {
 				<div>{`Review type: ${props.type}`}</div>
 			</div>
 
-			<div className={styles.image}>
-				{props.image}
+			<div className={styles.imageContainer}>
+				<img
+					className={styles.image}
+					src={`data:image/jpg;base64, ${props.image}`}
+					alt="здесь должна быть картинка"
+				/>
 			</div>
 
 			<div className={styles.description}>
@@ -51,13 +55,13 @@ export default function Review(props: IReview) {
 				</div>
 				<div className={styles.ratingAmongUsers}>
 					<div>
-						{`Rating among users: ${parseFloat(props.average_rating)}/5`}
+						{`Rating among users: ${props.average_rating}/5`}
 					</div>
 					<div className={styles.selectRate}>
 						<div className={styles.selectText}>
 							Give rating
 						</div>
-						<Select value={props.user_rating} size='sm' getRate={onChangeRate} options={[1, 2, 3, 4, 5]} />
+						<GiveRate value={props.user_rating} size='sm' getRate={onChangeRate} options={[1, 2, 3, 4, 5]} />
 					</div>
 				</div>
 				<div className={styles.likeButton}>

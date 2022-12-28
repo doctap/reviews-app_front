@@ -18,9 +18,8 @@ export default function HomePage() {
 	return (
 		<div className={styles.homePage}>
 			<div className={styles.listReviews}>
-				{isLoading && <SpinnerBallTriangle color='#0d6efd' />}
+				{isLoading ? <SpinnerBallTriangle color='#0d6efd' /> : <ListReviews reviews={reviews} />}
 				{error && <h1>{error}</h1>}
-				<ListReviews reviews={reviews} />
 			</div>
 		</div>
 	)
