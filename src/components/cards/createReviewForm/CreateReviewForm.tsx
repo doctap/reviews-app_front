@@ -69,6 +69,7 @@ export default function CreateReviewForm(props: ICreateReviewCard) {
 					text: text,
 					title: title,
 					type: typeReview,
+					date: new Date().toISOString()
 				}));
 			props.submitForm(formData)
 		}

@@ -12,7 +12,8 @@ export default function HomePage() {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		isAuthenticated ? dispatch(fetchProtectedReviews({ skip: 2, take: 3, token: token, sub: data_user?.sub })) : dispatch(fetchReviews({ skip: 2, take: 2 }));
+		isAuthenticated ? dispatch(fetchProtectedReviews({ skip: 0, take: 'ALL', token: token, sub: data_user?.sub })) : dispatch(fetchReviews({ skip: 0, take: 'ALL' }));
+		console.log('first')
 	}, [isAuthenticated])
 
 	return (

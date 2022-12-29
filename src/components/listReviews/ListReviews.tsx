@@ -11,6 +11,7 @@ export default function ListReviews(props: IListReviews) {
 		<>
 			{props.reviews.map(r => (
 				<Review
+					buttonOpen={true}
 					key={r.id}
 					id={r.id}
 					author_rating={r.author_rating}

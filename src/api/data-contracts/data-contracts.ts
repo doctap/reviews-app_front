@@ -1,3 +1,5 @@
+import { IUserData } from "../../redux/reducers/UserSlice";
+
 export interface IReview {
 	id: number;
 	title: string;
@@ -14,7 +16,13 @@ export interface IReview {
 	user_rating?: number;
 }
 
+export interface IOpenReview {
+	buttonOpen: boolean;
+}
+
 type typeReview = 'book' | 'film' | 'game';
+
+export type BodyRequest = IUser & IUserData & IRequestSlice;
 
 // export interface ICreateReview {
 // 	title: string;
@@ -69,5 +77,5 @@ export interface ILike {
 
 export interface IRequestSlice {
 	skip: number;
-	take: number;
+	take: number | string;
 }

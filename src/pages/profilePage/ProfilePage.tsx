@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import SpinnerBallTriangle from '../../components/boundary/spinners/Spinner'
 import styles from './ProfilePage.module.scss';
-import { useAppSelector } from '../../redux/hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { Button } from 'react-bootstrap';
-import { createReview } from '../../api/http-client';
+import { createReview, fetchReviewsUserOwn } from '../../api/http-client';
 import CreateReviewForm, { ICreateReviewCardLabels } from '../../components/cards/createReviewForm/CreateReviewForm';
+import ListReviews from '../../components/listReviews/ListReviews';
 
 const createFormLabels: ICreateReviewCardLabels = {
 	labelTitle: 'title',
@@ -22,6 +23,9 @@ export const ProfilePage = withAuthenticationRequired(
 		const { data_user } = useAppSelector(state => state.userSlice);
 		const [showCreateCard, setShowCreateCard] = useState(false);
 		const [isSuccessCreation, setIsSuccessCreation] = useState(false);
+		const { error, isLoading, reviews } = useAppSelector(state => state.reviewsSlice);
+		// const { isAuthenticated } = useAppSelector(state => state.userSlice);
+		const dispatch = useAppDispatch();
 
 		const sendFrom = async (body: FormData) => {
 			await createReview(body)
@@ -29,6 +33,10 @@ export const ProfilePage = withAuthenticationRequired(
 					setIsSuccessCreation(true);
 				})
 		}
+
+		useEffect(() => {
+			dispatch(fetchReviewsUserOwn({ skip: 0, take: 'ALL', sub: data_user?.sub }))
+		}, [isSuccessCreation, data_user, showCreateCard, dispatch])
 
 		return (
 			<div className={styles.profilePage}>
@@ -63,6 +71,11 @@ export const ProfilePage = withAuthenticationRequired(
 						</div>
 						: null
 				}
+
+				<div>
+					{isLoading ? <SpinnerBallTriangle color='#0d6efd' /> : <ListReviews reviews={reviews} />}
+					{error && <h1>{error}</h1>}
+				</div>
 
 			</div>
 		)
