@@ -1,0 +1,38 @@
+.ownReviews {
+
+	.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.userCard {
+			display: flex;
+		}
+
+		.successAnswer {
+			color: green;
+		}
+	}
+
+	.CreateReviewForm {
+		padding: 1rem 4rem 0 4rem;
+	}
+
+	.reviews {
+
+		&>* {
+			margin-bottom: 2rem;
+		}
+	}
+
+	.listReviews {
+		padding: 0 3rem;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+
+		&>* {
+			margin-bottom: 2rem;
+		}
+	}
+}

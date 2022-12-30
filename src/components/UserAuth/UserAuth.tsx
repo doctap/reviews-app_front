@@ -8,7 +8,7 @@ import { AuthButton } from "../buttons/authButton/AuthButton";
 
 export default function UserAuth() {
 
-	const { token, admin, data_user } = useAppSelector(state => state.userSlice);
+	const { token, data_user } = useAppSelector(state => state.userSlice);
 	const { userRecognition } = userSlice.actions;
 	const dispatch = useAppDispatch();
 
@@ -24,7 +24,7 @@ export default function UserAuth() {
 				dispatch(
 					userRecognition({
 						token: t,
-						data_user: user,
+						data_user: user as IUser,
 						admin: false,
 						isAuthenticated
 					})

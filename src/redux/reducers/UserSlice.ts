@@ -4,14 +4,18 @@ import { IUser } from '../../api/data-contracts/data-contracts';
 export interface IUserData {
 	admin?: boolean;
 	token: string;
-	data_user?: IUser;
+	data_user: IUser;
 	isAuthenticated?: boolean;
 }
 
 const initialState: IUserData = {
 	admin: false,
 	token: '',
-	data_user: {},
+	data_user: {
+		sub: '',
+		given_name: '',
+		family_name: '',
+	},
 	isAuthenticated: false,
 }
 

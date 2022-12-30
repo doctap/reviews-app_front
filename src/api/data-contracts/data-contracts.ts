@@ -1,5 +1,3 @@
-import { IUserData } from "../../redux/reducers/UserSlice";
-
 export interface IReview {
 	id: number;
 	title: string;
@@ -16,29 +14,25 @@ export interface IReview {
 	user_rating?: number;
 }
 
-export interface IOpenReview {
+export interface IComponentReview {
 	buttonOpen: boolean;
 }
 
 type typeReview = 'book' | 'film' | 'game';
 
-export type BodyRequest = IUser & IUserData & IRequestSlice;
+export interface IReviewId {
+	review_id: number;
+}
 
-// export interface ICreateReview {
-// 	title: string;
-// 	text: string;
-// 	name_work: string;
-// 	type: string;
-// 	tags: string;
-// 	image: FormData;
-// 	author_rating: number;
-// 	user_id: string;
-// }
+export interface ITokenSub {
+	token: string;
+	sub: string;
+}
 
 export interface IUser {
 	name?: string;
-	given_name?: string;
-	family_name?: string;
+	given_name: string;
+	family_name: string;
 	middle_name?: string;
 	nickname?: string;
 	preferred_username?: string;
@@ -55,7 +49,7 @@ export interface IUser {
 	phone_number_verified?: boolean;
 	address?: string;
 	updated_at?: string;
-	sub?: string;
+	sub: string;
 }
 
 export interface IResponseRegister {

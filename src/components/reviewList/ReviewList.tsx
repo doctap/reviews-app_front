@@ -2,11 +2,12 @@ import React from 'react'
 import { IReview } from '../../api/data-contracts/data-contracts'
 import Review from '../review/Review';
 
-interface IListReviews {
+interface IReviewList {
+	currentPage: string;
 	reviews: IReview[];
 }
 
-export default function ListReviews(props: IListReviews) {
+export default function ReviewList(props: IReviewList) {
 	return (
 		<>
 			{props.reviews.map(r => (

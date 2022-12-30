@@ -2,24 +2,43 @@ import { AxiosResponse } from "axios";
 import { reviewsSlice } from "../redux/reducers/ReviewsSlice";
 import { AppDispatch } from "../redux/store/store";
 import { API_CONFIG } from "./axiosConfig/axiosConfig";
-import { ILike, IUser, IRequestSlice, IResponseRegister, IReview, IRate, BodyRequest } from "./data-contracts/data-contracts";
+import {
+	ILike,
+	IUser,
+	IRequestSlice,
+	IResponseRegister,
+	IReview,
+	IRate,
+	IReviewId,
+	ITokenSub,
+} from "./data-contracts/data-contracts";
 
 const SERVER_URI = process.env.REACT_APP_SERVER_URI;
 
 export const fetchReviews = (slice: IRequestSlice) => async (dispatch: AppDispatch) => {
 	try {
 		dispatch(reviewsSlice.actions.reviewsFetching());
-		const res = await API_CONFIG.post<IRequestSlice, AxiosResponse<IReview[]>>(`${SERVER_URI}/reviews`, slice);
+		const res = await API_CONFIG.post<IRequestSlice, AxiosResponse<IReview[]>>(`${SERVER_URI}/`, slice);
 		dispatch(reviewsSlice.actions.reviewsFetchingSuccess(res.data));
 	} catch (e: any) {
 		dispatch(reviewsSlice.actions.reviewsFetchingError(e.message))
 	}
 }
 
-export const fetchProtectedReviews = (body: BodyRequest) => async (dispatch: AppDispatch) => {
+export const fetch_Review = (id: number) => async (dispatch: AppDispatch) => {
 	try {
 		dispatch(reviewsSlice.actions.reviewsFetching());
-		const res = await API_CONFIG.post<BodyRequest, AxiosResponse<IReview[]>>(
+		const res = await API_CONFIG.get<IReview[]>(`${SERVER_URI}/review/${id}`);
+		dispatch(reviewsSlice.actions.reviewsFetchingSuccess(res.data));
+	} catch (e: any) {
+		dispatch(reviewsSlice.actions.reviewsFetchingError(e.message))
+	}
+}
+
+export const fetchProtectedReviews = (body: IRequestSlice & ITokenSub) => async (dispatch: AppDispatch) => {
+	try {
+		dispatch(reviewsSlice.actions.reviewsFetching());
+		const res = await API_CONFIG.post<IReview[]>(
 			`${SERVER_URI}/protectedReviews`, body, { headers: { Authorization: `Bearer ${body.token}` } }
 		);
 		dispatch(reviewsSlice.actions.reviewsFetchingSuccess(res.data));
@@ -28,11 +47,23 @@ export const fetchProtectedReviews = (body: BodyRequest) => async (dispatch: App
 	}
 }
 
-export const fetchReviewsUserOwn = (body: IRequestSlice & IUser) => async (dispatch: AppDispatch) => {
+export const fetchProtected_Review = (body: IReviewId & ITokenSub) => async (dispatch: AppDispatch) => {
 	try {
 		dispatch(reviewsSlice.actions.reviewsFetching());
-		const res = await API_CONFIG.post<IRequestSlice & IUser, AxiosResponse<IReview[]>>(
-			`${SERVER_URI}/profilePage`, body, { headers: { "Content-Type": "application/json" } }
+		const res = await API_CONFIG.post<IReview[]>(
+			`${SERVER_URI}/protected_Review`, body, { headers: { Authorization: `Bearer ${body.token}` } }
+		);
+		dispatch(reviewsSlice.actions.reviewsFetchingSuccess(res.data));
+	} catch (e: any) {
+		dispatch(reviewsSlice.actions.reviewsFetchingError(e.message))
+	}
+}
+
+export const fetchReviewsUserOwn = (body: IRequestSlice & ITokenSub) => async (dispatch: AppDispatch) => {
+	try {
+		dispatch(reviewsSlice.actions.reviewsFetching());
+		const res = await API_CONFIG.post<IReview[]>(
+			`${SERVER_URI}/profilePage`, body, { headers: { Authorization: `Bearer ${body.token}` } }
 		);
 		dispatch(reviewsSlice.actions.reviewsFetchingSuccess(res.data));
 	} catch (e: any) {

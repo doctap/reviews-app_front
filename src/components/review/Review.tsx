@@ -1,18 +1,19 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap';
-import { IOpenReview, IReview } from '../../api/data-contracts/data-contracts'
+import { useNavigate } from 'react-router-dom';
+import { IComponentReview, IReview } from '../../api/data-contracts/data-contracts'
 import { giveRating, likeReview } from '../../api/http-client';
 import { useAppSelector } from '../../redux/hooks/redux';
 import CheckBoxLike from '../buttons/btnLike/CheckBoxLike';
 import GiveRate from '../selects/giveRate/GiveRate';
 import styles from './Review.module.scss';
 
-export default function Review(props: IReview & IOpenReview) {
+export default function Review(props: IReview & IComponentReview) {
 
 	const { data_user, token, isAuthenticated } = useAppSelector(st => st.userSlice);
 	const { loginWithRedirect } = useAuth0();
-
+	const navigate = useNavigate();
 	const reviewAuthor = props.user_id;
 
 	const onChangeRate = (rate: number) => {
@@ -56,7 +57,7 @@ export default function Review(props: IReview & IOpenReview) {
 				</div>
 				<div className={styles.ratingAmongUsers}>
 					<div>
-						{`Rating among users: ${parseFloat(props.average_rating ?? '')}/5`}
+						{`Rating among users: ${parseFloat(props.average_rating as string)}/5`}
 					</div>
 					<div className={styles.selectRate}>
 						<div className={styles.selectText}>
@@ -69,15 +70,13 @@ export default function Review(props: IReview & IOpenReview) {
 					<CheckBoxLike text='like it?' isLike={props.user_likes_it ?? false} onLike={onChangeLike} />
 				</div>
 			</div>
-
 			{
 				props.buttonOpen
 					? <div className={styles.openReview}>
-						<Button children='Open review' onClick={() => 0} />
+						<Button children='Open review' onClick={() => navigate(`review/${props.id}`)} />
 					</div>
 					: null
 			}
-
 			<div className={styles.tags}>
 				{props.tags}
 			</div>
