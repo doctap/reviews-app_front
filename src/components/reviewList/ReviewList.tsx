@@ -12,7 +12,9 @@ export default function ReviewList(props: IReviewList) {
 		<>
 			{props.reviews.map(r => (
 				<Review
-					buttonOpen={true}
+					viewComments={false}
+					isReviewOpen={true}
+					date={r.date}
 					key={r.id}
 					id={r.id}
 					author_rating={r.author_rating}

@@ -4,13 +4,14 @@ import SpinnerBallTriangle from '../../components/boundary/spinners/Spinner'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { Button } from 'react-bootstrap';
 import { createReview, fetchReviewsUserOwn } from '../../api/http-client';
-import CreateReviewForm, { ICreateReviewCardLabels } from '../../components/cards/createReviewForm/CreateReviewForm';
+import CreateReviewForm, { ICreateReviewCardLabels } from '../../components/createReviewForm/CreateReviewForm';
 import styles from './ProfilePage.module.scss';
 import ReviewList from '../../components/reviewList/ReviewList';
 import { Outlet } from 'react-router-dom';
 
 export const ProfilePage = withAuthenticationRequired(
 	() => {
+
 		return (
 			<div className={styles.profilePage}>
 				ProfilePage

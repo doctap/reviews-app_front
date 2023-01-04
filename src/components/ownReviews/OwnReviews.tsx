@@ -3,8 +3,9 @@ import { Button } from 'react-bootstrap';
 import { createReview, fetchReviewsUserOwn } from '../../api/http-client';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import SpinnerBallTriangle from '../boundary/spinners/Spinner'
-import CreateReviewForm, { ICreateReviewCardLabels } from '../cards/createReviewForm/CreateReviewForm';
+import CreateReviewForm, { ICreateReviewCardLabels } from '../createReviewForm/CreateReviewForm';
 import ReviewList from '../reviewList/ReviewList'
+import UserCard from '../userCard/UserCard';
 import styles from './OwnReviews.module.scss';
 
 const createFormLabels: ICreateReviewCardLabels = {
@@ -19,10 +20,10 @@ const createFormLabels: ICreateReviewCardLabels = {
 
 export default function OwnReviews() {
 
-	const { data_user, token } = useAppSelector(state => state.userSlice);
+	const { data_user, token, isAuthenticated } = useAppSelector(state => state.userSlice);
 	const [showCreateCard, setShowCreateCard] = useState(false);
 	const [isSuccessCreation, setIsSuccessCreation] = useState(false);
-	const { error, isLoading, reviews } = useAppSelector(state => state.reviewsSlice);
+	const { error, isLoading, items } = useAppSelector(state => state.reviewsSlice);
 	const dispatch = useAppDispatch();
 
 	const sendFrom = async (body: FormData) => {
@@ -33,47 +34,39 @@ export default function OwnReviews() {
 	}
 
 	useEffect(() => {
-		dispatch(fetchReviewsUserOwn({ skip: 0, take: 'ALL', sub: data_user.sub, token }))
-	}, [isSuccessCreation, data_user, showCreateCard, dispatch])
+		isAuthenticated && dispatch(fetchReviewsUserOwn({ skip: 0, take: 'ALL', sub: data_user.sub, token }))
+	}, [isSuccessCreation, data_user, showCreateCard, dispatch, isAuthenticated, token])
 
 	return (
 		<div className={styles.ownReviews}>
 			<div className={styles.header}>
 				<div className={styles.userCard}>
-					<div>
-						<img src={data_user?.picture} alt={data_user?.name} />
-					</div>
-					<div>
-						<h5>{data_user?.name}</h5>
-						<div>{data_user?.email}</div>
-					</div>
+					<UserCard data_user={data_user} />
 					<div>
 						<Button variant="primary" children='Create a review' onClick={() => setShowCreateCard(!showCreateCard)} />
 					</div>
 				</div>
-				{
-					isSuccessCreation
-						? <h4 className={styles.successAnswer}>Successful Creation</h4>
-						: null
-				}
+				{isSuccessCreation
+					? <h4 className={styles.successAnswer}>Successful Creation</h4>
+					: null}
 			</div>
-			{
-				showCreateCard
-					? <div className={styles.CreateReviewForm}>
-						<CreateReviewForm
-							authorId={data_user?.sub}
-							labels={createFormLabels}
-							submitForm={sendFrom}
-						/>
-					</div>
-					: null
-			}
-
+			{showCreateCard
+				? <div className={styles.CreateReviewForm}>
+					<CreateReviewForm
+						authorId={data_user?.sub}
+						labels={createFormLabels}
+						submitForm={sendFrom}
+					/>
+				</div>
+				: null}
 			<div className={styles.listReviews}>
 				{error && <h1>{error}</h1>}
-				{isLoading ? <SpinnerBallTriangle color='#0d6efd' /> : <ReviewList currentPage='profilePage' reviews={reviews} />}
+				{isLoading
+					? <SpinnerBallTriangle color='#0d6efd' />
+					: <ReviewList
+						currentPage='profilePage'
+						reviews={items} />}
 			</div>
-
 		</div>
 	)
 }

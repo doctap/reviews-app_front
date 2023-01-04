@@ -7,7 +7,7 @@ import styles from './Reviews.module.scss';
 
 export default function Reviews() {
 
-	const { error, reviews, isLoading } = useAppSelector(st => st.reviewsSlice);
+	const { error, items, isLoading } = useAppSelector(st => st.reviewsSlice);
 	const { isAuthenticated, token, data_user } = useAppSelector(st => st.userSlice);
 	const dispatch = useAppDispatch();
 
@@ -20,7 +20,11 @@ export default function Reviews() {
 	return (
 		<div className={styles.listReviews}>
 			{error && <h1>{error}</h1>}
-			{isLoading ? <SpinnerBallTriangle color='#0d6efd' /> : <ReviewList currentPage={''} reviews={reviews} />}
+			{isLoading
+				? <SpinnerBallTriangle color='#0d6efd' />
+				: <ReviewList
+					currentPage={''}
+					reviews={items} />}
 		</div>
 	)
 }

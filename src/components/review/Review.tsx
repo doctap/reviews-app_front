@@ -1,40 +1,47 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { IComponentReview, IReview } from '../../api/data-contracts/data-contracts'
-import { giveRating, likeReview } from '../../api/http-client';
-import { useAppSelector } from '../../redux/hooks/redux';
+import { IAddPropsReview, IReview } from '../../api/data-contracts/data-contracts'
+import { fetchComments, giveRating, likeReview } from '../../api/http-client';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
+import SpinnerBallTriangle from '../boundary/spinners/Spinner';
 import CheckBoxLike from '../buttons/btnLike/CheckBoxLike';
+import CommentList from '../commentList/CommentList';
 import GiveRate from '../selects/giveRate/GiveRate';
 import styles from './Review.module.scss';
 
-export default function Review(props: IReview & IComponentReview) {
+export default function Review(props: IReview & IAddPropsReview) {
 
 	const { data_user, token, isAuthenticated } = useAppSelector(st => st.userSlice);
+	const { items, isLoading, error } = useAppSelector(st => st.commentsSlice);
 	const { loginWithRedirect } = useAuth0();
 	const navigate = useNavigate();
 	const reviewAuthor = props.user_id;
+	const dispatch = useAppDispatch();
 
 	const onChangeRate = (rate: number) => {
-		isAuthenticated ?
-			giveRating({ user_rating: rate, sub: data_user?.sub, review_id: props.id }, token)
-			:
-			loginWithRedirect();
+		isAuthenticated
+			? giveRating({ user_rating: rate, sub: data_user?.sub, review_id: props.id }, token)
+			: loginWithRedirect();
 	}
 
 	const onChangeLike = (isLike: boolean) => {
-		isAuthenticated ?
-			likeReview({ user_likes_it: isLike, sub: data_user?.sub, review_id: props.id }, token)
-			:
-			loginWithRedirect();
+		isAuthenticated
+			? likeReview({ user_likes_it: isLike, sub: data_user?.sub, review_id: props.id }, token)
+			: loginWithRedirect();
 	}
+
+	useEffect(() => {
+		props.viewComments && dispatch(fetchComments(props.id))
+	}, [])
 
 	return (
 		<div id={`review${props.id}`} className={styles.review}>
 
 			<div className={styles.title}>
 				<div>{props.title}</div>
+				<div>{new Date(props.date).toLocaleString()}</div>
 				<div>{`Review type: ${props.type}`}</div>
 			</div>
 
@@ -71,7 +78,7 @@ export default function Review(props: IReview & IComponentReview) {
 				</div>
 			</div>
 			{
-				props.buttonOpen
+				props.isReviewOpen
 					? <div className={styles.openReview}>
 						<Button children='Open review' onClick={() => navigate(`review/${props.id}`)} />
 					</div>
@@ -80,7 +87,16 @@ export default function Review(props: IReview & IComponentReview) {
 			<div className={styles.tags}>
 				{props.tags}
 			</div>
-
+			{
+				props.viewComments
+					? <div className={styles.comments}>
+						{error && <h1>{error}</h1>}
+						{isLoading
+							? <SpinnerBallTriangle color='#0d6efd' />
+							: <CommentList comments={items} />}
+					</div>
+					: null
+			}
 		</div>
 	)
 }

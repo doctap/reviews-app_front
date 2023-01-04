@@ -1,14 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IReview } from "../../api/data-contracts/data-contracts";
+import { IItems, IReview } from "../../api/data-contracts/data-contracts";
 
-export interface IItems {
-	reviews: IReview[];
-	isLoading: boolean;
-	error: string;
-}
-
-const initialState: IItems = {
-	reviews: [],
+const initialState: IItems<IReview> = {
+	items: [],
 	error: '',
 	isLoading: false,
 }
@@ -23,11 +17,14 @@ export const reviewsSlice = createSlice({
 		reviewsFetchingSuccess(state, action: PayloadAction<IReview[]>) {
 			state.isLoading = false;
 			state.error = '';
-			state.reviews = action.payload;
+			state.items = action.payload;
 		},
 		reviewsFetchingError(state, action: PayloadAction<string>) {
 			state.isLoading = false;
 			state.error = action.payload;
+		},
+		sortReviews(state, action: PayloadAction<IReview[]>) {
+			state.items = action.payload;
 		}
 	}
 });

@@ -9,13 +9,29 @@ export interface IReview {
 	author_rating: number;
 	likes: number;
 	user_id: string;
+	date: Date;
 	average_rating?: string;
 	user_likes_it?: boolean;
 	user_rating?: number;
 }
 
-export interface IComponentReview {
-	buttonOpen: boolean;
+export interface IItems<T> {
+	items: T[];
+	isLoading: boolean;
+	error: string;
+}
+
+export interface IComment {
+	user_id: string;
+	last_name: string;
+	first_name: string;
+	text: string;
+	date: Date;
+}
+
+export interface IAddPropsReview {
+	isReviewOpen: boolean;
+	viewComments: boolean;
 }
 
 type typeReview = 'book' | 'film' | 'game';

@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios";
+import { commentsSlice } from "../redux/reducers/CommentsSlice";
 import { reviewsSlice } from "../redux/reducers/ReviewsSlice";
 import { AppDispatch } from "../redux/store/store";
 import { API_CONFIG } from "./axiosConfig/axiosConfig";
@@ -11,14 +12,25 @@ import {
 	IRate,
 	IReviewId,
 	ITokenSub,
+	IComment,
 } from "./data-contracts/data-contracts";
 
 const SERVER_URI = process.env.REACT_APP_SERVER_URI;
 
+export const fetchComments = (reviewId: number) => async (dispatch: AppDispatch) => {
+	try {
+		dispatch(commentsSlice.actions.commentsFetching());
+		const res = await API_CONFIG.get<IComment[]>(`${SERVER_URI}/comments${reviewId}`);
+		dispatch(commentsSlice.actions.commentsFetchingSuccess(res.data));
+	} catch (e: any) {
+		dispatch(commentsSlice.actions.commentsFetchingError(e.message))
+	}
+}
+
 export const fetchReviews = (slice: IRequestSlice) => async (dispatch: AppDispatch) => {
 	try {
 		dispatch(reviewsSlice.actions.reviewsFetching());
-		const res = await API_CONFIG.post<IRequestSlice, AxiosResponse<IReview[]>>(`${SERVER_URI}/`, slice);
+		const res = await API_CONFIG.post<IReview[]>(`${SERVER_URI}/`, slice);
 		dispatch(reviewsSlice.actions.reviewsFetchingSuccess(res.data));
 	} catch (e: any) {
 		dispatch(reviewsSlice.actions.reviewsFetchingError(e.message))

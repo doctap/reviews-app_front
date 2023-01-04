@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
-import Select from '../../selects/select/Select';
+import Select from '../selects/select/Select';
 
 interface ICreateReviewCard {
 	authorId?: string;
@@ -69,7 +69,7 @@ export default function CreateReviewForm(props: ICreateReviewCard) {
 					text: text,
 					title: title,
 					type: typeReview,
-					date: new Date().toISOString()
+					date: new Date().toUTCString()
 				}));
 			props.submitForm(formData)
 		}

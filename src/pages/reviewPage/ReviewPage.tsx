@@ -8,11 +8,11 @@ import styles from './ReviewPage.module.scss';
 
 export default function ReviewPage() {
 
-	const { error, reviews, isLoading } = useAppSelector(st => st.reviewsSlice);
+	const { error, items, isLoading } = useAppSelector(st => st.reviewsSlice);
 	const { isAuthenticated, token, data_user } = useAppSelector(st => st.userSlice);
 	const dispatch = useAppDispatch();
 
-	const review = reviews[0];
+	// const review = items[0];
 
 	const params = useParams();
 	const review_id = parseInt(params.id as string);
@@ -27,23 +27,25 @@ export default function ReviewPage() {
 			{
 				isLoading
 					? <SpinnerBallTriangle color='#0d6efd' />
-					:	<Review
-							buttonOpen={true}
-							key={review.id}
-							id={review.id}
-							author_rating={review.author_rating}
-							image={review.image}
-							likes={review.likes}
-							name_work={review.name_work}
-							tags={review.tags}
-							text={review.text}
-							title={review.title}
-							type={review.type}
-							user_id={review.user_id}
-							average_rating={review.average_rating}
-							user_likes_it={review.user_likes_it}
-							user_rating={review.user_rating}
-						/>
+					: <Review
+						viewComments={true}
+						isReviewOpen={false}
+						date={items[0].date}
+						key={items[0].id}
+						id={items[0].id}
+						author_rating={items[0].author_rating}
+						image={items[0].image}
+						likes={items[0].likes}
+						name_work={items[0].name_work}
+						tags={items[0].tags}
+						text={items[0].text}
+						title={items[0].title}
+						type={items[0].type}
+						user_id={items[0].user_id}
+						average_rating={items[0].average_rating}
+						user_likes_it={items[0].user_likes_it}
+						user_rating={items[0].user_rating}
+					/>
 			}
 		</div>
 	)
