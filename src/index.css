@@ -1,8 +1,5 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
-@import './fonts/iconfont/material-icons.css';
-@import './fonts/Montserrat/static/montserrat.css';
-
 html {
 	min-width: fit-content;
 	height: 100%;
