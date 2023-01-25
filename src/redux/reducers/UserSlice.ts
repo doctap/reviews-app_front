@@ -5,7 +5,7 @@ export interface IUserData {
 	admin?: boolean;
 	token: string;
 	data_user: IUser;
-	isAuthenticated?: boolean;
+	isAuthenticated: boolean;
 }
 
 const initialState: IUserData = {
@@ -23,7 +23,7 @@ export const userSlice = createSlice({
 	name: 'userData',
 	initialState,
 	reducers: {
-		userRecognition(state, action: PayloadAction<IUserData>) {
+		userRecognize(state, action: PayloadAction<IUserData>) {
 			state.token = action.payload.token;
 			state.admin = action.payload.admin;
 			state.data_user = action.payload.data_user;

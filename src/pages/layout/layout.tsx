@@ -14,7 +14,7 @@ export default function Layout() {
 				<Nav.Item>
 					<Link to="/profilePage">My Profile</Link>
 				</Nav.Item>
-				<Nav.Item>
+				<Nav.Item className='d-flex align-items-center'>
 					<UserAuth/>
 				</Nav.Item>
 			</Nav>
