@@ -1,10 +1,10 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav';
 import { Outlet, Link } from "react-router-dom";
-import UserAuth from '../../components/UserAuth/UserAuth';
+import { UserAuth } from '../../components';
 import styles from './Layout.module.scss';
 
-export default function Layout() {
+export const Layout = () => {
 	return (
 		<>
 			<Nav className={styles.nav} variant="tabs">

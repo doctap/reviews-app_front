@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
-import Select from '../selects/select/Select';
+import { Select } from '../index';
 
 interface ICreateReviewCard {
 	authorId?: string;
@@ -22,7 +22,7 @@ const authorRates = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 const reviewTypes = ['book', 'film', 'game'];
 type image = { f: File | null, isDownloaded: boolean };
 
-export default function CreateReviewForm(props: ICreateReviewCard) {
+export const CreateReviewForm = (props: ICreateReviewCard) => {
 
 	const [title, setTitle] = useState('');
 	const [typeReview, setTypeReview] = useState('');

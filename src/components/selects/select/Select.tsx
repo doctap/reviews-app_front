@@ -9,7 +9,7 @@ interface ISelect {
 	defaultValue?: string;
 }
 
-export default function Select(props: ISelect) {
+const Select = (props: ISelect) => {
 	return (
 		<Form.Select
 			value={props.value}
@@ -23,3 +23,5 @@ export default function Select(props: ISelect) {
 		</Form.Select>
 	)
 }
+
+export { Select };

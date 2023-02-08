@@ -1,13 +1,11 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { IAddPropsReview, IReview } from '../../api/data-contracts/data-contracts'
-import { fetchComments, giveRating, likeReview } from '../../api/http-client';
+import { fetchComments, giveRating, IAddPropsReview, IReview, likeReview } from '../../api';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
-import SpinnerBallTriangle from '../boundary/spinners/Spinner';
 import CheckBoxLike from '../buttons/btnLike/CheckBoxLike';
-import CommentList from '../commentList/CommentList';
+import { CommentList, SpinnerBallTriangle } from '../index';
 import GiveRate from '../selects/giveRate/GiveRate';
 import styles from './Review.module.scss';
 
@@ -17,7 +15,6 @@ export default function Review(props: IReview & IAddPropsReview) {
 	const { items, isLoading, error } = useAppSelector(st => st.commentsSlice);
 	const { loginWithRedirect } = useAuth0();
 	const navigate = useNavigate();
-	const reviewAuthor = props.user_id;
 	const dispatch = useAppDispatch();
 
 	const onChangeRate = (rate: number) => {

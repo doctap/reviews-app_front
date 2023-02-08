@@ -1,8 +1,9 @@
 import React from 'react'
-import { LoginButton } from './loginButton/LoginButton'
-import { LogoutButton } from './logoutButton/LogoutButton'
+import { LoginButton } from './loginButton/LoginButton';
+import { LogoutButton } from './logoutButton/LogoutButton';
 
-interface IAuthButton {
+
+export interface IAuthButton {
 	onLogin(): void;
 	onLogout(): void;
 	isAuth: boolean;

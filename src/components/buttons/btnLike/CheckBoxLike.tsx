@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
-import styles from './CheckBoxLike.module.scss';
 
 interface ICheckBoxLike {
 	isLike?: boolean;
@@ -8,7 +7,7 @@ interface ICheckBoxLike {
 	text?: string;
 }
 
-export default function CheckBoxLike(props: ICheckBoxLike) {
+export const CheckBoxLike = (props: ICheckBoxLike) => {
 
 	const [like, setLike] = useState<boolean | undefined>(false);
 

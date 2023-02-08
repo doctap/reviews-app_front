@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap';
-import { createReview, fetchReviewsUserOwn } from '../../api/http-client';
+import { createReview, fetchReviewsUserOwn } from '../../api';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
-import SpinnerBallTriangle from '../boundary/spinners/Spinner'
-import CreateReviewForm, { ICreateReviewCardLabels } from '../createReviewForm/CreateReviewForm';
-import ReviewList from '../reviewList/ReviewList'
-import UserCard from '../userCard/UserCard';
+import { CreateReviewForm, ICreateReviewCardLabels, ReviewList, SpinnerBallTriangle, UserCard } from '../index';
 import styles from './OwnReviews.module.scss';
 
 const createFormLabels: ICreateReviewCardLabels = {
@@ -18,7 +15,7 @@ const createFormLabels: ICreateReviewCardLabels = {
 	labelImage: 'Drag and drop an image!',
 }
 
-export default function OwnReviews() {
+export const OwnReviews = () => {
 
 	const { data_user, token, isAuthenticated } = useAppSelector(state => state.userSlice);
 	const [showCreateCard, setShowCreateCard] = useState(false);
@@ -63,9 +60,7 @@ export default function OwnReviews() {
 				{error && <h1>{error}</h1>}
 				{isLoading
 					? <SpinnerBallTriangle color='#0d6efd' />
-					: <ReviewList
-						currentPage='profilePage'
-						reviews={items} />}
+					: <ReviewList reviews={items} />}
 			</div>
 		</div>
 	)

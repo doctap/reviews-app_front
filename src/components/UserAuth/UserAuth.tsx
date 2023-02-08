@@ -1,12 +1,11 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
-import { IUser } from "../../api/data-contracts/data-contracts";
-import { registerUser } from "../../api/http-client";
+import { IUser, registerUser } from "../../api";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/redux";
 import { userSlice } from "../../redux/reducers/UserSlice";
-import { AuthButton } from "../buttons/authButton/AuthButton";
+import { AuthButton } from '../index';
 
-export default function UserAuth() {
+export const UserAuth = () => {
 
 	const { token, data_user } = useAppSelector(state => state.userSlice);
 	const { userRecognize } = userSlice.actions;

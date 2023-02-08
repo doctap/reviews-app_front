@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
-import { fetchProtectedReviews, fetchReviews } from '../../api/http-client';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
-import SpinnerBallTriangle from '../boundary/spinners/Spinner';
-import ReviewList from '../reviewList/ReviewList';
 import styles from './Reviews.module.scss';
+import { ReviewList, SpinnerBallTriangle } from '../index';
+import { fetchProtectedReviews, fetchReviews } from '../../api';
 
-export default function Reviews() {
+export const Reviews = () => {
+
+	const colorSpinner = '#0d6efd';
 
 	const { error, items, isLoading } = useAppSelector(st => st.reviewsSlice);
 	const { isAuthenticated, token, data_user } = useAppSelector(st => st.userSlice);
@@ -21,10 +22,8 @@ export default function Reviews() {
 		<div className={styles.listReviews}>
 			{error && <h1>{error}</h1>}
 			{isLoading
-				? <SpinnerBallTriangle color='#0d6efd' />
-				: <ReviewList
-					currentPage={''}
-					reviews={items} />}
+				? <SpinnerBallTriangle color={colorSpinner} />
+				: <ReviewList reviews={items} />}
 		</div>
 	)
 }

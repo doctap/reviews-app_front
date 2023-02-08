@@ -6,7 +6,7 @@ interface IUserCard {
 	data_user: IUser
 }
 
-export default function UserCard(props: IUserCard) {
+export const UserCard = (props: IUserCard) => {
 	return (
 		<div className={styles.userCard}>
 			<div>

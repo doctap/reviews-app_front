@@ -3,11 +3,10 @@ import { IReview } from '../../api/data-contracts/data-contracts'
 import Review from '../review/Review';
 
 interface IReviewList {
-	currentPage: string;
 	reviews: IReview[];
 }
 
-export default function ReviewList(props: IReviewList) {
+export const  ReviewList = (props: IReviewList) => {
 	return (
 		<>
 			{props.reviews.map(r => (

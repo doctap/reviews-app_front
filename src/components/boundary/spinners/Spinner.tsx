@@ -1,12 +1,11 @@
 import React from 'react'
-import { BallTriangle} from 'react-loader-spinner'
-// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { BallTriangle } from 'react-loader-spinner'
 
-interface ISpinnerBallTriangle {
+export interface ISpinnerBallTriangle {
 	color: string;
 }
 
-export default function SpinnerBallTriangle(props: ISpinnerBallTriangle) {
+export const SpinnerBallTriangle = (props: ISpinnerBallTriangle) => {
 	return (
 		<BallTriangle
 			height={100}

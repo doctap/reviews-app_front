@@ -1,8 +1,8 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
-import { IComment } from '../../api/data-contracts/data-contracts'
+import { IComment } from '../../api'
 
-export default function Comment(props: IComment) {
+export const Comment = (props: IComment) => {
 	return (
 		<Card
 			bg='light'

@@ -8,7 +8,7 @@ interface IGiveRate {
 	value?: number;
 }
 
-export default function GiveRate(props: IGiveRate) {
+export const GiveRate = (props: IGiveRate) => {
 
 	const [value, setValue] = useState<number | string | undefined>();
 

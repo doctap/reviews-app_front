@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchProtected_Review, fetch_Review } from '../../api/http-client';
-import SpinnerBallTriangle from '../../components/boundary/spinners/Spinner';
+import { fetchProtected_Review, fetch_Review } from '../../api';
+import { SpinnerBallTriangle } from '../../components';
 import Review from '../../components/review/Review';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import styles from './ReviewPage.module.scss';
 
-export default function ReviewPage() {
+export const ReviewPage = () => {
 
 	const { error, items, isLoading } = useAppSelector(st => st.reviewsSlice);
 	const { isAuthenticated, token, data_user } = useAppSelector(st => st.userSlice);
