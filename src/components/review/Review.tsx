@@ -4,9 +4,7 @@ import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { fetchComments, giveRating, IAddPropsReview, IReview, likeReview } from '../../api';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
-import CheckBoxLike from '../buttons/btnLike/CheckBoxLike';
-import { CommentList, SpinnerBallTriangle } from '../index';
-import GiveRate from '../selects/giveRate/GiveRate';
+import { CheckBoxLike, CommentList, GiveRate, SpinnerBallTriangle } from '../index';
 import styles from './Review.module.scss';
 
 export default function Review(props: IReview & IAddPropsReview) {
