@@ -4,25 +4,25 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import Auth0ProviderWithNavigate from './providers/Auth0ProviderWithNavigate';
+import { Auth0ProviderWithNavigate } from './providers/index';
 import { Provider } from 'react-redux';
-import { setupStore } from './redux/store/store'
+import { setupStore } from './redux/store/store';
 
 const store = setupStore();
 
 const root = ReactDOM.createRoot(
-	document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement
 );
 root.render(
-	<React.StrictMode>
-		<BrowserRouter>
-			<Auth0ProviderWithNavigate>
-				<Provider store={store} >
-					<App />
-				</Provider>
-			</Auth0ProviderWithNavigate>
-		</BrowserRouter>
-	</React.StrictMode>
+  <React.StrictMode>
+    <BrowserRouter>
+      <Auth0ProviderWithNavigate>
+        <Provider store={store} >
+          <App />
+        </Provider>
+      </Auth0ProviderWithNavigate>
+    </BrowserRouter>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

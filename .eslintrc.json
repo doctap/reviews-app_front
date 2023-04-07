@@ -1,0 +1,71 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": [
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react-hooks/recommended",
+      "plugin:react/recommended",
+      "plugin:import/errors",
+      "plugin:import/warnings",
+      "plugin:import/typescript",
+      "standard-with-typescript"
+    ],
+    "overrides": [],
+    "parserOptions": {
+      "project": ["./tsconfig.json"],
+      "tsconfigRootDir": "./",
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "react",
+      "@typescript-eslint"
+    ],
+    "rules": {
+      "react/display-name": [
+        "off",
+        {
+          "ignoreTranspilerName": true
+        }
+      ],
+      "require-jsdoc": "off",
+      "@typescript-eslint/ban-ts-comment": "off",
+      "@typescript-eslint/ban-types": "off",
+      "indent": [
+        "warn",
+        2,
+        {
+          "FunctionExpression": {"body": 1, "parameters": 2},
+          "SwitchCase": 1,
+          "ignoredNodes": [
+            "ObjectExpression"
+          ]
+        }
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
+      "no-fallthrough": [
+        "off"
+      ],
+      "prefer-const": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/semi": "off",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/no-floating-promises": "off",
+      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-var-requires": "off",
+      "no-trailing-spaces": [
+        "error",
+        {
+          "skipBlankLines": true
+        }
+      ]
+    }
+  }

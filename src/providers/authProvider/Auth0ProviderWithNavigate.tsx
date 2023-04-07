@@ -9,7 +9,7 @@ interface IAuth0ProviderWithNavigate {
 	children: React.ReactNode;
 }
 
-const Auth0ProviderWithNavigate = (props: IAuth0ProviderWithNavigate) => {
+export const Auth0ProviderWithNavigate = (props: IAuth0ProviderWithNavigate) => {
 	const navigate = useNavigate()
 
 	// функция, вызываемая после авторизации
