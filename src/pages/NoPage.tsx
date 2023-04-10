@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-export default function NoPage() {
+export const NoPage = () => {
   return (
-	 <h1>Page Not Found</h1>
-  )
-}
+    <h1>Page Not Found</h1>
+  );
+};

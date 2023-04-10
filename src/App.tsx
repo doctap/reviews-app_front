@@ -3,7 +3,7 @@ import './App.scss';
 import { Routes, Route } from 'react-router-dom';
 import { HomePage, Layout, ProfilePage, ReviewPage } from './pages';
 import { OwnReviews, Reviews } from './components';
-import NoPage from './pages/NoPage';
+import { NoPage } from './pages/NoPage';
 
 function App () {
   return (
