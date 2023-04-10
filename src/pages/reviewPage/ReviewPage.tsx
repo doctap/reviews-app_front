@@ -1,52 +1,54 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchProtected_Review, fetch_Review } from '../../api';
+import { fetchSelectedProtectedReview, fetchSelectedReview } from '../../api';
 import { SpinnerBallTriangle } from '../../components';
-import Review from '../../components/review/Review';
+import { Review } from '../../components/review/Review';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import styles from './ReviewPage.module.scss';
+import { spinnerColor } from '../../theme';
 
 export const ReviewPage = () => {
+  const { error, items, isLoading } = useAppSelector(st => st.reviewsSlice);
+  const { isAuthenticated, token, dataUser } = useAppSelector(st => st.userSlice);
+  const dispatch = useAppDispatch();
 
-	const { error, items, isLoading } = useAppSelector(st => st.reviewsSlice);
-	const { isAuthenticated, token, data_user } = useAppSelector(st => st.userSlice);
-	const dispatch = useAppDispatch();
+  let review = items[0];
 
-	// const review = items[0];
+  const params = useParams();
+  const reviewId = parseInt(params.id as string);
 
-	const params = useParams();
-	const review_id = parseInt(params.id as string);
+  useEffect(() => {
+    isAuthenticated
+      ? dispatch(fetchSelectedProtectedReview({ sub: dataUser.sub, token, review_id: reviewId }))
+      : dispatch(fetchSelectedReview(reviewId));
+  }, [isAuthenticated]);
 
-	useEffect(() => {
-		isAuthenticated ? dispatch(fetchProtected_Review({ sub: data_user.sub, token, review_id })) : dispatch(fetch_Review(review_id))
-	}, [isAuthenticated])
-
-	return (
-		<div className={styles.reviewPage}>
-			{error && <h1>{error}</h1>}
-			{
-				isLoading
-					? <SpinnerBallTriangle color='#0d6efd' />
-					: <Review
-						viewComments={true}
-						isReviewOpen={false}
-						date={items[0].date}
-						key={items[0].id}
-						id={items[0].id}
-						author_rating={items[0].author_rating}
-						image={items[0].image}
-						likes={items[0].likes}
-						name_work={items[0].name_work}
-						tags={items[0].tags}
-						text={items[0].text}
-						title={items[0].title}
-						type={items[0].type}
-						user_id={items[0].user_id}
-						average_rating={items[0].average_rating}
-						user_likes_it={items[0].user_likes_it}
-						user_rating={items[0].user_rating}
-					/>
-			}
-		</div>
-	)
-}
+  return (
+    <div className={styles.reviewPage}>
+      {error !== '' && <h1>{error}</h1>}
+      {
+        isLoading
+          ? <SpinnerBallTriangle color={spinnerColor} />
+          : <Review
+            viewComments={true}
+            isReviewOpen={false}
+            date={review.date}
+            key={review.id}
+            id={review.id}
+            author_rating={review.author_rating}
+            image={review.image}
+            likes={review.likes}
+            name_work={review.name_work}
+            tags={review.tags}
+            text={review.text}
+            title={review.title}
+            type={review.type}
+            user_id={review.user_id}
+            average_rating={review.average_rating}
+            user_likes_it={review.user_likes_it}
+            user_rating={review.user_rating}
+          />
+      }
+    </div>
+  );
+};

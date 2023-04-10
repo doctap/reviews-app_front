@@ -1,16 +1,18 @@
-import { Button } from 'react-bootstrap'
+import React from 'react';
+import { Button } from 'react-bootstrap';
 
 interface ILoginButton {
-	onLogin(): void;
+  onLogin: () => void
 }
 
 export const LoginButton = (props: ILoginButton) => {
-	return (
-		<Button
-			size='sm'
-			variant="outline-success"
-			children='Log In'
-			onClick={props.onLogin}
-		/>
-	)
-}
+  return (
+    <Button
+      size='sm'
+      variant="outline-success"
+      onClick={props.onLogin}
+    >
+      Log In
+    </Button>
+  );
+};
