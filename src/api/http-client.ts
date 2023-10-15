@@ -2,18 +2,18 @@ import { type AxiosResponse } from 'axios';
 import { commentsSlice } from '../redux/reducers/CommentsSlice';
 import { reviewsSlice } from '../redux/reducers/ReviewsSlice';
 import { type AppDispatch } from '../redux/store/store';
-import { API_CONFIG } from './axiosConfig/axiosConfig';
-import {
-  type ILike,
-  type IUser,
-  type IRequestSlice,
-  type IResponseRegister,
-  type IReview,
-  type IRate,
-  type IReviewId,
-  type ITokenSub,
-  type IComment
-} from './data-contracts/data-contracts';
+import { API_CONFIG } from './index';
+import type {
+  ILike,
+  IUser,
+  IRequestSlice,
+  IResponseRegister,
+  IReview,
+  IRate,
+  IReviewId,
+  ITokenSub,
+  IComment
+} from './index';
 
 const SERVER_URI = process.env.REACT_APP_SERVER_URI as string;
 

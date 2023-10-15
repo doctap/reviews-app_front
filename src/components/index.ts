@@ -1,4 +1,4 @@
-export * from './boundary/spinners/Spinner';
+export * from './spinners/Spinner';
 export * from './buttons/authButton/AuthButton';
 export * from './buttons/btnLike/CheckBoxLike';
 export * from './comment/Comment';
@@ -10,5 +10,4 @@ export * from './reviewList/ReviewList';
 export * from './reviews/Reviews';
 export * from './selects/giveRate/GiveRate';
 export * from './selects/select/Select';
-export * from './UserAuth/UserAuth';
 export * from './userCard/UserCard';

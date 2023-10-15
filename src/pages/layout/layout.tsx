@@ -1,7 +1,6 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav';
 import { Outlet, Link } from 'react-router-dom';
-import { UserAuth } from '../../components';
 import styles from './Layout.module.scss';
 
 export const Layout = () => {
@@ -15,7 +14,7 @@ export const Layout = () => {
           <Link to="/profilePage">My Profile</Link>
         </Nav.Item>
         <Nav.Item className='d-flex align-items-center'>
-          <UserAuth/>
+          {/* Auth */}
         </Nav.Item>
       </Nav>
       <Outlet />

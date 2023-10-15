@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { fetchComments, giveRating, type IAddPropsReview, type IReview, likeReview } from '../../api';
@@ -11,20 +10,15 @@ import { spinnerColor } from '../../theme';
 export const Review = (props: IReview & IAddPropsReview) => {
   const { dataUser, token, isAuthenticated } = useAppSelector(st => st.userSlice);
   const { items, isLoading, error } = useAppSelector(st => st.commentsSlice);
-  const { loginWithRedirect } = useAuth0();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const onChangeRate = (rate: number) => {
-    isAuthenticated
-      ? giveRating({ user_rating: rate, sub: dataUser?.sub, review_id: props.id }, token)
-      : loginWithRedirect();
+    giveRating({ user_rating: rate, sub: dataUser?.sub, review_id: props.id }, token);
   };
 
   const onChangeLike = (isLike: boolean) => {
-    isAuthenticated
-      ? likeReview({ user_likes_it: isLike, sub: dataUser?.sub, review_id: props.id }, token)
-      : loginWithRedirect();
+    likeReview({ user_likes_it: isLike, sub: dataUser?.sub, review_id: props.id }, token);
   };
 
   useEffect(() => {
